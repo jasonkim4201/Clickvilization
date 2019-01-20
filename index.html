@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <title>Clickvilization</title>
+</head>
+
+<body>
+
+  <h2 id="civName">civName</h2>
+  <div>Population: <span id="popDisplay">0</span></div>
+  <br>
+
+  <div class="row">
+    <div>
+      <div class="col">
+        <!-- RESOURCE HEADER -->
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="navBRTab" data-toggle="tab" href="#navBR" role="tab" aria-controls="navBR"
+              aria-selected="true">Basic Resources</a>
+            <a class="nav-item nav-link" id="navSRTab" data-toggle="tab" href="#navSR" role="tab" aria-controls="navSR"
+              aria-selected="false">Specialized Resources</a>
+            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
+              aria-controls="nav-contact" aria-selected="false">Advanced Resources</a>
+          </div>
+        </nav>
+        <!-- TAB CONTENT -->
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="navBR" role="tabpanel" aria-labelledby="navBRTab">
+            <!-- BUTTONS/BASIC RESOURCES -->
+            <div class="container">
+              <!-- TABLE -->
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td><button type="button" class="btn btn-outline-dark">Harvest Food</button></td>
+                    <td id="foodIcon"><img src="https://via.placeholder.com/35" alt="food"></td>
+                    <td>Food:</td>
+                    <td><span id="foodTotal">0</span>/<span id="foodLimit">500</span></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button" class="btn btn-outline-dark">Harvest Wood</button></td>
+                    <td id="woodIcon"><img src="https://via.placeholder.com/35" alt="wood"></td>
+                    <td>Wood:</td>
+                    <td><span id="woodTotal">0</span>/<span id="woodLimit">500</span></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button" class="btn btn-outline-dark">Harvest Stone</button></td>
+                    <td id="stoneIcon"><img src="https://via.placeholder.com/35" alt="stone"></td>
+                    <td>Stone:</td>
+                    <td><span id="stoneTotal">0</span>/<span id="stoneLimit">500</span></td>
+                  </tr>
+                  <tr>
+                    <td><button type="button" class="btn btn-outline-dark">Harvest Iron</button></td>
+                    <td id="ironIcon"><img src="https://via.placeholder.com/35" alt="iron"></td>
+                    <td>Iron:</td>
+                    <td><span id="ironTotal">0</span>/<span id="ironLimit">500</span></td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+          <div class="tab-pane fade" id="navSR" role="tabpanel" aria-labelledby="navSRTab">
+            <!-- BUTTONS/SPECIALIZED RESOURCES -->
+            <div class="container">
+              <br>
+              <button type="button" class="btn btn-outline-dark">Harvest Special1</button>
+              <br><br>
+              <button type="button" class="btn btn-outline-dark">Harvest Special2</button>
+              <br><br>
+              <button type="button" class="btn btn-outline-dark">Harvest Special3</button>
+              <br><br>
+              <button type="button" class="btn btn-outline-dark">Harvest Special4</button>
+
+            </div>
+          </div>
+          <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">COMING SOON</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</body>
+
+</html>
