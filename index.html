@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- look at me i'm building a game you proud of me???? -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,24 +53,28 @@
                                     <td id="foodIcon"><img src="assets/images/corn.png" alt="food"></td>
                                     <td>Food:</td>
                                     <td><span id="foodTotal">0</span>/<span id="foodLimit"></span></td>
+                                    <td id="autoFood">0.0/s</td>
                                   </tr>
                                   <tr>
                                     <td><button type="button" class="btn btn-outline-dark btn-block resource" id="woodBtn">Harvest Wood</button></td>
                                     <td id="woodIcon"><img src="assets/images/tree.png" alt="wood"></td>
                                     <td>Wood:</td>
                                     <td><span id="woodTotal">0</span>/<span id="woodLimit"></span></td>
+                                    <td id="autoWood">0.0/s</td>
                                   </tr>
                                   <tr>
                                     <td><button type="button" class="btn btn-outline-dark btn-block resource" id="stoneBtn">Gather Stone</button></td>
                                     <td id="stoneIcon"><img src="assets/images/rock.png" alt="stone"></td>
                                     <td>Stone:</td>
                                     <td><span id="stoneTotal">0</span>/<span id="stoneLimit"></span></td>
+                                    <td id ="autoStone">0.0/s</td>
                                   </tr>
                                   <tr>
                                     <td><button type="button" class="btn btn-outline-dark btn-block resource" id="ironBtn" disabled>Mine Iron</button></td>
                                     <td id="ironIcon"><img src="assets/images/iron.png" alt="iron"></td>
                                     <td>Iron:</td>
                                     <td><span id="ironTotal">0</span>/<span id="ironLimit"></span></td>
+                                    <td id="autoIron">0.0/s</td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -145,13 +149,54 @@
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       <a class="nav-item nav-link active" id="navPopTab" data-toggle="tab" href="#navPop" role="tab" aria-controls="navPop" aria-selected="true">Population</a>
                       <a class="nav-item nav-link" id="navWorkTab" data-toggle="tab" href="#navWork" role="tab" aria-controls="navWork" aria-selected="false">Work</a>
-                      <a class="nav-item nav-link" id="navBuildingTab" data-toggle="tab" href="#navBuilding" role="tab" aria-controls="navBuilding" aria-selected="false">Buildings</a>
+                      <a class="nav-item nav-link" id="navBuildingTab" data-toggle="tab" href="#navBuilding" role="tab" aria-controls="navBuilding" aria-selected="false">Housing</a>
                     </div>
                   </nav>
                   <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="navPop" role="tabpanel" aria-labelledby="navPopTab">...</div>
+                    <div class="tab-pane fade show active" id="navPop" role="tabpanel" aria-labelledby="navPopTab">
+                      <br>  
+                      <div id="currentPop">Population: 0</div>
+                      <div id="maxPop">Population Capacity: None! Housing required!</div>
+                      <br>
+                      <button type="button" class="btn btn-outline-dark" disabled>Add civilians</button>
+                      <div id="10pop"></div>
+                      <div id="100pop"></div>
+                      <div id="1000pop"></div>
+                      <div id="maxpop"></div>
+                      
+                    </div>
                     <div class="tab-pane fade" id="navWork" role="tabpanel" aria-labelledby="navWorktab">...</div>
-                    <div class="tab-pane fade" id="navBuilding" role="tabpanel" aria-labelledby="navBuildingTab">...</div>
+                    <div class="tab-pane fade" id="navBuilding" role="tabpanel" aria-labelledby="navBuildingTab">
+                      <!-- BUILDING BUTTONS -->
+                      <div class="btn-group-vertical" id="housingBtnArea">
+                        <!-- housing table -->
+                        <table class="table">
+                          <tbody>
+                            <tr id="housingRow">
+                              <td><button type="button" class="btn btn-outline-dark btn-sm housingBtn" id ="hut">Build Hut</button></td>
+                              <td class="font-weight-bold">Huts:</td>
+                              <td id="hutCount">0</td>
+                              <td>5 wood, 5 stone, +1 Population</td>
+                            </tr>
+                            <tr>
+                              <td><button type="button" class="btn btn-outline-dark btn-sm housingBtn" id="cabin">Build Log Cabin</button></td>
+                              <td class="font-weight-bold">Log Cabins:</td>
+                              <td id="cabinCount">0</td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <td><button type="button" class="btn btn-outline-dark btn-sm housingBtn" id="cottage" disabled>Build Cottage</button></td>
+                              <td class="font-weight-bold">Cottages:</td>
+                              <td id="cottageCount">0</td>
+                              <td></td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                      </div>
+                     <!--  BUILDINGS THAT INCREASE MAX RESOURCES -->
+
+                    </div>
                   </div>
 
 
