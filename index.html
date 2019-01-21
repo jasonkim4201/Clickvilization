@@ -16,82 +16,176 @@
   <h2 id="civName">civName</h2>
   <div>Population: <span id="popDisplay">0</span></div>
   <br>
+  
+<!-- EXPERIEMENTAL ZONE -->
 
-  <div class="row">
-    <div>
-      <div class="col">
-        <!-- RESOURCE HEADER -->
-        <nav>
-          <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="navBRTab" data-toggle="tab" href="#navBR" role="tab" aria-controls="navBR"
-              aria-selected="true">Basic Resources</a>
-            <a class="nav-item nav-link" id="navSRTab" data-toggle="tab" href="#navSR" role="tab" aria-controls="navSR"
-              aria-selected="false">Specialized Resources</a>
-            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
-              aria-controls="nav-contact" aria-selected="false">Advanced Resources</a>
-          </div>
-        </nav>
-        <!-- TAB CONTENT -->
-        <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="navBR" role="tabpanel" aria-labelledby="navBRTab">
-            <!-- BUTTONS/BASIC RESOURCES -->
-            <div class="container">
-              <!-- TABLE -->
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <td><button type="button" class="btn btn-outline-dark btn-block resource" id="foodBtn">Harvest Food</button></td>
-                    <td id="foodIcon"><img src="https://via.placeholder.com/35" alt="food"></td>
-                    <td>Food:</td>
-                    <td><span id="foodTotal">0</span>/<span id="foodLimit"></span></td>
-                  </tr>
-                  <tr>
-                    <td><button type="button" class="btn btn-outline-dark btn-block resource" id="woodBtn">Harvest Wood</button></td>
-                    <td id="woodIcon"><img src="https://via.placeholder.com/35" alt="wood"></td>
-                    <td>Wood:</td>
-                    <td><span id="woodTotal">0</span>/<span id="woodLimit"></span></td>
-                  </tr>
-                  <tr>
-                    <td><button type="button" class="btn btn-outline-dark btn-block resource" id="stoneBtn">Harvest Stone</button></td>
-                    <td id="stoneIcon"><img src="https://via.placeholder.com/35" alt="stone"></td>
-                    <td>Stone:</td>
-                    <td><span id="stoneTotal">0</span>/<span id="stoneLimit"></span></td>
-                  </tr>
-                  <tr>
-                    <td><button type="button" class="btn btn-outline-dark btn-block resource" id="ironBtn" disabled>Harvest Iron</button></td>
-                    <td id="ironIcon"><img src="https://via.placeholder.com/35" alt="iron"></td>
-                    <td>Iron:</td>
-                    <td><span id="ironTotal">0</span>/<span id="ironLimit"></span></td>
-                  </tr>
-                </tbody>
-              </table>
-
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <!-- RESOURCES AREA HERE -->            
+              <div class="container" id="resourceContainer">
+                  <div class="row">
+                    <div>
+                      <div class="col">
+                        <!-- RESOURCE HEADER -->
+                        <nav>
+                          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="navBRTab" data-toggle="tab" href="#navBR" role="tab" aria-controls="navBR"
+                              aria-selected="true">Basic Resources</a>
+                            <a class="nav-item nav-link" id="navSRTab" data-toggle="tab" href="#navSR" role="tab" aria-controls="navSR"
+                              aria-selected="false">Specialized Resources</a>
+                            <a class="nav-item nav-link" id="navARTab" data-toggle="tab" href="#navAR" role="tab"
+                              aria-controls="navAR" aria-selected="false">Advanced Resources</a>
+                          </div>
+                        </nav>
+                        <!-- TAB CONTENT -->
+                        <div class="tab-content" id="nav-tabContent">
+                          <div class="tab-pane fade show active" id="navBR" role="tabpanel" aria-labelledby="navBRTab">
+                            <!-- BUTTONS/BASIC RESOURCES -->
+                            <div class="container">
+                              <!-- TABLE -->
+                              <table class="table">
+                                <tbody>
+                                  <tr>
+                                    <td><button type="button" class="btn btn-outline-dark btn-block resource" id="foodBtn">Harvest Food</button></td>
+                                    <td id="foodIcon"><img src="assets/images/corn.png" alt="food"></td>
+                                    <td>Food:</td>
+                                    <td><span id="foodTotal">0</span>/<span id="foodLimit"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td><button type="button" class="btn btn-outline-dark btn-block resource" id="woodBtn">Harvest Wood</button></td>
+                                    <td id="woodIcon"><img src="assets/images/tree.png" alt="wood"></td>
+                                    <td>Wood:</td>
+                                    <td><span id="woodTotal">0</span>/<span id="woodLimit"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td><button type="button" class="btn btn-outline-dark btn-block resource" id="stoneBtn">Gather Stone</button></td>
+                                    <td id="stoneIcon"><img src="assets/images/rock.png" alt="stone"></td>
+                                    <td>Stone:</td>
+                                    <td><span id="stoneTotal">0</span>/<span id="stoneLimit"></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td><button type="button" class="btn btn-outline-dark btn-block resource" id="ironBtn" disabled>Mine Iron</button></td>
+                                    <td id="ironIcon"><img src="assets/images/iron.png" alt="iron"></td>
+                                    <td>Iron:</td>
+                                    <td><span id="ironTotal">0</span>/<span id="ironLimit"></span></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                
+                            </div>
+                          </div>
+                          <div class="tab-pane fade" id="navSR" role="tabpanel" aria-labelledby="navSRTab">
+                            <!-- BUTTONS/SPECIALIZED RESOURCES -->
+                            <div class="container">
+                              <br>
+                              <button type="button" class="btn btn-outline-dark resource">Harvest Special1</button>
+                              <br><br>
+                              <button type="button" class="btn btn-outline-dark">Harvest Special2</button>
+                              <br><br>
+                              <button type="button" class="btn btn-outline-dark">Harvest Special3</button>
+                              <br><br>
+                              <button type="button" class="btn btn-outline-dark">Harvest Special4</button>
+                
+                            </div>
+                          </div>
+                          <div class="tab-pane fade" id="navAR" role="tabpanel" aria-labelledby="navARTab">COMING SOON</div>
+                        </div>
+                
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             <!--  END OF RESOURCES -->
             </div>
           </div>
-          <div class="tab-pane fade" id="navSR" role="tabpanel" aria-labelledby="navSRTab">
-            <!-- BUTTONS/SPECIALIZED RESOURCES -->
-            <div class="container">
-              <br>
-              <button type="button" class="btn btn-outline-dark resource">Harvest Special1</button>
-              <br><br>
-              <button type="button" class="btn btn-outline-dark">Harvest Special2</button>
-              <br><br>
-              <button type="button" class="btn btn-outline-dark">Harvest Special3</button>
-              <br><br>
-              <button type="button" class="btn btn-outline-dark">Harvest Special4</button>
-
-            </div>
-          </div>
-          <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">COMING SOON</div>
         </div>
-
+        <!-- TECHNOLOGY ZONE -->
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+                <div id="technologyContainer">
+                  <h5>Techy things</h5>
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+                          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+                          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                        </div>
+                      </nav>
+                      <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+                      </div>
+                
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- END OF TECH ZONE -->
       </div>
-    </div>
-  </div>
+</div>
+<br>
+<br>
+
+<!-- PEOPLE MANAGEMENT -->
+<div class="container-fluid" id="peopleManagementContainer">
+   
+
+    <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              
+              <h5>People n buildings</h5>
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      <a class="nav-item nav-link active" id="navPopTab" data-toggle="tab" href="#navPop" role="tab" aria-controls="navPop" aria-selected="true">Population</a>
+                      <a class="nav-item nav-link" id="navWorkTab" data-toggle="tab" href="#navWork" role="tab" aria-controls="navWork" aria-selected="false">Work</a>
+                      <a class="nav-item nav-link" id="navBuildingTab" data-toggle="tab" href="#navBuilding" role="tab" aria-controls="navBuilding" aria-selected="false">Buildings</a>
+                    </div>
+                  </nav>
+                  <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="navPop" role="tabpanel" aria-labelledby="navPopTab">...</div>
+                    <div class="tab-pane fade" id="navWork" role="tabpanel" aria-labelledby="navWorktab">...</div>
+                    <div class="tab-pane fade" id="navBuilding" role="tabpanel" aria-labelledby="navBuildingTab">...</div>
+                  </div>
 
 
 
 
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5>Other</h5>
+
+
+              <nav>
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">News</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                  </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
+                  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+                  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+                </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    
+</div>
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.js"></script>
