@@ -132,7 +132,7 @@ $("#ironLimit").html(iron.limit);
     $("popDisplay").html(population.current);
     console.log(`Current pop: ${population.current}`);
     updateResources();
-    
+    updatePopulation();
   })
 
 
@@ -233,9 +233,9 @@ var updateResources = () => {
 
 
   //add statment to disable #civBtn if population.current === population.max
-  if (population.current === population.max) {
+  if (population.current === population.max && food.total < 20) {
     $("#civBtn").prop("disabled", true);
-  } else if (population.current < population.max) {
+  } else if (population.current < population.max && food.total >= 20) {
     $("#civBtn").prop("disabled", false);
   }
 
