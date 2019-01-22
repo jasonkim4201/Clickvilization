@@ -170,11 +170,27 @@
                 <div id="currentPop">Population: 0</div>
                 <div id="maxPop"></div>
                 <br>
-                <button type="button" class="btn btn-outline-dark" disabled>Add civilians</button>
-                <div id="10pop"></div>
-                <div id="100pop"></div>
-                <div id="1000pop"></div>
-                <div id="maxpop"></div>
+                <div class="row">
+                  <div class="col"><button type="button" class="btn btn-outline-dark addCiv" id="civBtn" disabled>Add civilians</button></div>
+                  <div class="col">Cost: 20 food</div>
+                </div>
+                <div class="row">
+                  <div class="col" id="10pop"></div>
+                  <div class="col"></div>
+                </div>
+               <div class="row">
+                 <div class="col" id="100pop"></div>
+                 <div class="col"></div>
+               </div>
+               <div class="row">
+                 <div class="col" id="1000pop"></div>
+                 <div class="col"></div>
+               </div>
+              <div class="row">
+                <div class="col" id="allPop"></div>
+                <div class="col"></div>
+              </div>
+              
 
               </div>
               <div class="tab-pane fade" id="navWork" role="tabpanel" aria-labelledby="navWorktab">...</div>
@@ -185,24 +201,24 @@
                   <table class="table">
                     <tbody>
                       <tr id="housingRow">
-                        <td><button type="button" class="btn btn-outline-dark btn-sm housingBtn" id="hut">Build Hut</button></td>
+                        <td><button type="button" class="btn btn-outline-dark btn-sm housingBtn" id="hut" disabled>Build Hut</button></td>
                         <td class="font-weight-bold">Huts:</td>
                         <td id="hutCount">0</td>
                         <td>5 wood, 5 stone, +1 Max population</td>
                       </tr>
                       <tr>
-                        <td><button type="button" class="btn btn-outline-dark btn-sm housingBtn" id="cabin">Build Log
+                        <td><button type="button" class="btn btn-outline-dark btn-sm housingBtn" id="cabin" disabled>Build Log
                             Cabin</button></td>
                         <td class="font-weight-bold">Log Cabins:</td>
-                        <td id="cabinCount">0</td>
-                        <td></td>
+                        <td id="st">0</td>
+                        <td>20 wood, 10 stone, +4 Max population</td>
                       </tr>
                       <tr>
                         <td><button type="button" class="btn btn-outline-dark btn-sm housingBtn" id="cottage" disabled>Build
                             Cottage</button></td>
                         <td class="font-weight-bold">Cottages:</td>
                         <td id="cottageCount">0</td>
-                        <td></td>
+                        <td>35 wood, 20 stone, 5 iron, +10 Max Population</td>
                       </tr>
                     </tbody>
                   </table>

@@ -1,10 +1,12 @@
+//🎵Sweet dreams are made of these. Who am I to disagree? I traveled the world and the seven seas. Everybody is looking for something🎵
 $(document).ready(function() {
   console.log("ready");
 //GLOBAL VARIABLES
 //Maybe it would be smarter to declare global variables as objects since these variables will have several values
 var population = {
   current: 0,
-  max: 0
+  max: 0,
+  idle: 0
 },
 food = {
   name: "Food",
@@ -73,6 +75,8 @@ $("#woodLimit").html(wood.limit);
 $("#stoneLimit").html(stone.limit);
 $("#ironLimit").html(iron.limit);
 
+/* CLICKITY CLICKY ZONEEEEEEE */
+
   //on click function on basic resources
   $(".resource").on("click", function() {   
   //EXPIERIMENTAL SWITCH STATEMENT
@@ -83,8 +87,7 @@ $("#ironLimit").html(iron.limit);
     } else {
       //when specific resource is clicked then it is added to the total and updated on html page.
       food.total += food.increment;
-      $("#foodTotal").html(food.total);
-      console.log(`Food: ${food.total}`);
+      updateResources();
     }
     break;
     
@@ -93,8 +96,7 @@ $("#ironLimit").html(iron.limit);
       return console.log(`Wood limit of ${wood.limit} has been reached.`);
     } else {
       wood.total += wood.increment;
-      $("#woodTotal").html(wood.total);
-      console.log(`Wood: ${wood.total}`);
+      updateResources();
     }
     break;
 
@@ -103,8 +105,7 @@ $("#ironLimit").html(iron.limit);
       return console.log(`Stone limit of ${stone.limit} has been reached.`);
     } else {
       stone.total += stone.increment;
-      $("#stoneTotal").html(stone.total);
-      console.log(`Stone: ${stone.total}`);
+      updateResources();
     }
     break;
 
@@ -113,8 +114,7 @@ $("#ironLimit").html(iron.limit);
       return console.log(`Iron limit of ${iron.limit} has been reached.`);
     } else {
       iron.total += iron.increment;
-      $("#ironTotal").html(iron.total);
-      console.log(`Iron: ${iron.total}`);
+      updateResources();
     }
     break;
 
@@ -124,14 +124,24 @@ $("#ironLimit").html(iron.limit);
     
   })
 
+//add civilian will cost 20 food.
+  $("#civBtn").on("click", function() {
+    food.total -= 20;
+    population.current++;
+    $("#currentPop").html(`Population: ${population.current}`);
+    $("popDisplay").html(population.current);
+    console.log(`Current pop: ${population.current}`);
+    updateResources();
+    
+  })
+
 
 
   //on click function for housing button group
   //if resource(later will include tech) requirements is met then button will not be disabled
   //determine which is clicked with switch statement
   $(".housingBtn").on("click", function() {
-    console.log("A button in the housing area has been clicked.");
-
+  
     switch (this.id) {
       case "hut":
       //subtract resource requirements from total resources
@@ -146,9 +156,12 @@ $("#ironLimit").html(iron.limit);
       break;
 
       case "cabin":
+      wood.total -= cabin.requirements.wood;
+      stone.total -= cabin.requirements.stone;
+      cabin.total++;
+      $("#cabinCount").html(cabin.total);
       updatePopulation();
       updateResources();
-      console.log("You built a cabin!");
       break;
       
       case "cottage":
@@ -163,12 +176,12 @@ $("#ironLimit").html(iron.limit);
     }
 
   });
-
+  
 //check to see if user has enough resources to purchase an item. If requirements are met, then button will not be disabled.
 
 //Display Max pop
 if (population.max === 0) {
-  $("#maxPop").html("<strong>Maximum population:</strong> None! Housing required!");
+  $("#maxPop").html("Maximum population: None! Housing required!");
 } else {
   $("#maxPop").html(`Maximum  population: ${population.max}`);
 }
@@ -184,13 +197,59 @@ var updatePopulation = () => {
 
 }
 
+//Something tells me I shouldn't just spam this function all over the place....whatever what could possibly go wrong!
+//Probably going to regret it stupidly when you have the resource addition automated and it tries to execute the function multiple times per sec. Whatever that's a major bug or potential dumster fire for another day.
+// Maybe make a function purely just to check resource requirement...
+
 var updateResources = () => {
   $("#foodTotal").html(food.total);
   $("#woodTotal").html(wood.total);
   $("#stoneTotal").html(stone.total);
   $("ironTotal").html(iron.total);
+  
+  if (food.total > 19 && population.max > 0) {
+    $("#civBtn").prop("disabled", false);
+  } else { //NEED TO CHANGE THIS TO ELSE IF WHEN I SOBER UP TO MAKE SURE JAVASCRIPT DOESNT MAKE A LOOPHOLE 
+    $("#civBtn").prop("disabled", true);
+  }
+
+  if (wood.total < 5 && stone.total < 5) {
+    $("#hut").prop("disabled", true);
+  } else if (wood.total >= 5 && stone.total >= 5) {
+    $("#hut").prop("disabled", false);
+  }
+
+  if (wood.total < 20 && stone.total < 10) {
+    $("#cabin").prop("disabled", true);
+  } else if (wood.total >= 20 && stone.total >= 10) {
+    $("#cabin").prop("disabled", false);
+  }
+
+  if (wood.total < 35 && stone.total < 20 && iron.total < 5) {
+    $("#cottage").prop("disabled", true);
+  } else if (wood.total >= 35 && stone.total >= 20 && iron.total >= 5) {
+    $("#cottage").prop("disabled", false);
+  }
+
+
+  //add statment to disable #civBtn if population.current === population.max
+  if (population.current === population.max) {
+    $("#civBtn").prop("disabled", true);
+  } else if (population.current < population.max) {
+    $("#civBtn").prop("disabled", false);
+  }
+
 }
 
 
 
+//specialized items may include gold, coal, livestock(more food and leather?), and something???
+//items gathered from each resources tabs combined with special buildings that will produce special manufactured items
+// eventually make something where 1 stone will produce 4 units of sand. Sand will be used to make glass and that in turn to make more advanced things
+
+
+
+
+
+//END OF DOCUMENT.READY
 })
