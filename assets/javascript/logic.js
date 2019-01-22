@@ -127,12 +127,13 @@ $("#ironLimit").html(iron.limit);
 //add civilian will cost 20 food.
   $("#civBtn").on("click", function() {
     food.total -= 20;
-    population.current++;
-    $("#currentPop").html(`Population: ${population.current}`);
-    $("popDisplay").html(population.current);
+    population.idle++;
+    updatePopulation();
+    /* $("#currentPop").html(`Population: ${population.current}`);
+    $("#popDisplay").html(population.current); */
     console.log(`Current pop: ${population.current}`);
     updateResources();
-    updatePopulation();
+    
   })
 
 
@@ -190,6 +191,10 @@ if (population.max === 0) {
 
 //calculate current/max population funtion
 var updatePopulation = () => {
+  //calculate current pop
+  population.current = (population.idle);
+  $("#currentPop").html(`Population: ${population.current}`);
+  $("#popDisplay").html(population.current);
   //calculate max pop
   population.max = (hut.total * hut.capacity) + (cabin.total * cabin.capacity) +(cottage.total * cottage.capacity);
   $("#maxPop").html(`Maximum  population: ${population.max}`);
@@ -209,7 +214,7 @@ var updateResources = () => {
   
   if (food.total > 19 && population.max > 0) {
     $("#civBtn").prop("disabled", false);
-  } else { //NEED TO CHANGE THIS TO ELSE IF WHEN I SOBER UP TO MAKE SURE JAVASCRIPT DOESNT MAKE A LOOPHOLE 
+  } else { //double check later if i should use an if else instead to be safe
     $("#civBtn").prop("disabled", true);
   }
 
