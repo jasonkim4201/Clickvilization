@@ -131,6 +131,7 @@ $("#ironLimit").html(iron.limit);
     updatePopulation();
     /* $("#currentPop").html(`Population: ${population.current}`);
     $("#popDisplay").html(population.current); */
+    console.log(`Idle population: ${population.idle}`);
     console.log(`Current pop: ${population.current}`);
     updateResources();
     
@@ -166,6 +167,9 @@ $("#ironLimit").html(iron.limit);
       break;
       
       case "cottage":
+      wood.total -= cottage.requirements.wood;
+      stone.total -= cottage.requirements.stone;
+      iron.total -= cottage.requirements.iron;
       updatePopulation();
       updateResources();
       console.log("You built a cottage!");
@@ -198,7 +202,7 @@ var updatePopulation = () => {
   //calculate max pop
   population.max = (hut.total * hut.capacity) + (cabin.total * cabin.capacity) +(cottage.total * cottage.capacity);
   $("#maxPop").html(`Maximum  population: ${population.max}`);
-  console.log(`Max population: ${population.max}.`);
+  /* console.log(`Max population: ${population.max}.`); */
 
 }
 
@@ -236,6 +240,14 @@ var updateResources = () => {
     $("#cottage").prop("disabled", false);
   }
 
+// maybe make a large modal and use that as a tech menu
+//check to see if a certain tech has been unlocked then prevent them from being disabled
+// ie when mining tools have been unlocked prevent mining button from being disabled.
+      //this will also rename gather stone to mine stone which will also increase the increment
+// farming tools will allow an increase in increment on push of harvest food button.
+
+
+//think about making a upgrade increment function to update increment settings. maybe within the functions it lists if x upgrade is true then add y amount to increment to specified resource
 
   //add statment to disable #civBtn if population.current === population.max
   if (population.current === population.max && food.total < 20) {
@@ -253,7 +265,7 @@ var updateResources = () => {
 // eventually make something where 1 stone will produce 4 units of sand. Sand will be used to make glass and that in turn to make more advanced things
 
 
-
+//Make a debug function so you dont have to click a billion times while testing....
 
 
 //END OF DOCUMENT.READY
