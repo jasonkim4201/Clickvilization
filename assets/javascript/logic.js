@@ -28,7 +28,10 @@ var hide = new resources("Hide");
 var coal = new resources("Coal");
 var gold = new resources("Gold");
 
+
 var hut = new housing("Hut", 0, 1, 0, 5, 5, 0);
+var shack = new housing("Shack", 0, 4, 0, 20, 10, 0);
+//update cabin info later...
 var cabin = new housing("Log Cabin", 0, 4, 0, 20, 10, 0);
 var cottage = new housing("Cottage", 0, 10, 0, 35, 20, 5);
 
@@ -44,7 +47,7 @@ console.log(stone);
 console.log(iron);   
 console.log(gold);
 console.log(hut);
-console.log(cabin);
+console.log(shack);
 
 /* var maxPopulation = (hut.total * hut.capacity) + (cabin.total * cabin.capacity) +(cottage.total * cottage.capacity);
 console.log(`max pop: ${maxPopulation}`); */
@@ -57,14 +60,12 @@ $("#ironLimit").html(iron.limit);
 
 /* CLICKITY CLICKY ZONEEEEEEE */
 
-  //on click function on basic resources
   $(".resource").on("click", function() {   
   switch (this.id) {
     case "foodBtn":
     if (food.total >= food.limit) {
       return console.log(`Food limit of ${food.total} has been reached.`);
     } else {
-      //when specific resource is clicked then it is added to the total and updated on html page.
       food.total += food.increment;
       updateResources();
     }
@@ -136,8 +137,6 @@ $("#ironLimit").html(iron.limit);
     food.total -= 20;
     population.idle++;
     updatePopulation();
-    /* $("#currentPop").html(`Population: ${population.current}`);
-    $("#popDisplay").html(population.current); */
     console.log(`Idle population: ${population.idle}`);
     console.log(`Current pop: ${population.current}`);
     updateResources();
@@ -147,15 +146,10 @@ $("#ironLimit").html(iron.limit);
 
 
   //on click function for housing button group
-  //if resource(later will include tech) requirements is met then button will not be disabled
-  //determine which is clicked with switch statement
   $(".housingBtn").on("click", function() {
   
     switch (this.id) {
       case "hut":
-      //subtract resource requirements from total resources
-      //add to hut.total to #hutCount and update #maxPoP
-      //update population and resources
       wood.total -= hut.requirements.wood;
       stone.total -= hut.requirements.stone;
       hut.total++
@@ -164,11 +158,11 @@ $("#ironLimit").html(iron.limit);
       updateResources();
       break;
 
-      case "cabin":
-      wood.total -= cabin.requirements.wood;
-      stone.total -= cabin.requirements.stone;
-      cabin.total++;
-      $("#cabinCount").html(cabin.total);
+      case "shack":
+      wood.total -= shack.requirements.wood;
+      stone.total -= shack.requirements.stone;
+      shack.total++;
+      $("#shackCount").html(shack.total);
       updatePopulation();
       updateResources();
       break;
@@ -204,7 +198,7 @@ $("#ironLimit").html(iron.limit);
       wood.total -= 25;
       stone.total -= 30;
       wood.increment++;
-      $("#treeRpw").empty();
+      $("#treeRow").empty();
       updateResources();
       break;
 
@@ -219,16 +213,46 @@ $("#ironLimit").html(iron.limit);
       break;
 
       case "animalHusbandry":
+      food.total -= 100;
+      wood.total -= 85;
+      stone.total -= 40;
+      iron.total -= 30;
+      $("#cowRow").empty();
+      updateResources();
+      break;
+
+      case "masonry":
+      wood.total -= 45;
+      stone.total -= 100;
+      iron.total -= 30;
+      stone.increment++;
+      $("#stoneRow").empty();
+      updateResources();
+      break;
+
+      case "leatherMaking":
+      hide.total -= 40;
+      wood.total -= 120;
+      stone.total -=50;
+      iron.total -= 35;
+      $("#hideRow").empty();
+      updateResources();
+      break;
+
+      case "irrigation":
+      food.total -= 70;
+      wood.total -= 200;
+      stone.total -= 125;
+      iron.total -= 50;
+      food.increment++;
+      $("#waterRow").empty();
+      updateResources();
       break;
 
       default:
       break;
     }
   });  
-
-/* IF STATEMENTS */
-
-//check to see if user has enough resources to purchase an item. If requirements are met, then button will not be disabled.
 
 //Display Max pop
 (population.max === 0) ? $("#maxPop").html("Maximum population: None! Housing required!") : $("#maxPop").html(`Maximum  population: ${population.max}`);
@@ -237,20 +261,14 @@ $("#ironLimit").html(iron.limit);
 
 //calculate current/max population funtion
 var updatePopulation = () => {
-  //calculate current pop
   population.current = (population.idle);
   $("#currentPop").html(`Population: ${population.current}`);
   $("#popDisplay").html(population.current);
-  //calculate max pop
-  population.max = (hut.total * hut.capacity) + (cabin.total * cabin.capacity) +(cottage.total * cottage.capacity);
+  
+  population.max = (hut.total * hut.capacity) +  (shack.total * shack.capacity) + (cabin.total * cabin.capacity) +(cottage.total * cottage.capacity);
   $("#maxPop").html(`Maximum  population: ${population.max}`);
   /* console.log(`Max population: ${population.max}.`); */
-
 }
-
-//Something tells me I shouldn't just spam this function all over the place....whatever what could possibly go wrong!
-//Probably going to regret it stupidly when you have the resource addition automated and it tries to execute the function multiple times per sec. Whatever that's a major bug or potential dumster fire for another day.
-// Maybe make a function purely just to check resource requirement...
 
 var updateResources = () => {
   $("#foodTotal").html(food.total);
@@ -261,34 +279,26 @@ var updateResources = () => {
   $("#coalTotal").html(coal.total);
   $("#goldTotal").html(gold.total);
 
-  (food.total >= 5 && wood.total >= 5 && stone.total >= 5) ? $("#farmTools").prop("disabled", false) : $("#farmTools").prop("disabled", true);
+  (food.total >= 20 && wood.total >= 20 && stone.total >= 30) ? $("#farmTools").prop("disabled", false) : $("#farmTools").prop("disabled", true);
+
+  (wood.total >= 25 && stone.total >= 30) ? $("#lumberTools").prop("disabled", false) : $("#lumberTools").prop("disabled", true);
 
   (wood.total >= 30 && stone.total >= 40) ? $("#miningTools").prop("disabled", false) : $("#miningTools").prop("disabled", true);
+
+  (food.total >= 100 && wood.total >= 85 && stone.total >= 40 && iron.total >= 30) ? $("#animalHusbandry").prop("disabled", false) : $("#animalHusbandry").prop("disabled", true);
+
+  (wood.total >= 45 && stone.total >= 100 && iron.total >= 30) ? $("#masonry").prop("disabled", false) : $("#masonry").prop("disabled", true);
+
+  (hide.total >= 40 && wood.total >= 120 && stone.total >= 50 && iron.total >= 35) ? $("#leatherMaking").prop("disabled", false) : $("#leatherMaking").prop("disabled", true);
+
+  (food.total >= 70 && wood.total >= 200 && stone.total >= 125 && iron.total >= 50) ? $("#irrigation").prop("disabled", false) : $("#irrigation").prop("disabled", true);
   
   (wood.total >= 5 && stone.total >= 5) ? $("#hut").prop("disabled", false) : $("#hut").prop("disabled", true);
 
-  (wood.total >= 20 && stone.total >= 10) ? $("#cabin").prop("disabled", false) : $("#cabin").prop("disabled", true)
-  /* if (wood.total < 20 || stone.total < 10) {
-    $("#cabin").prop("disabled", true);
-  } else if (wood.total >= 20 && stone.total >= 10) {
-    $("#cabin").prop("disabled", false);
-  } */
-
-  if (wood.total < 35 || stone.total < 20 || iron.total < 5) {
-    $("#cottage").prop("disabled", true);
-  } else if (wood.total >= 35 && stone.total >= 20 && iron.total >= 5) {
-    $("#cottage").prop("disabled", false);
-  }
-
-//check to see if a certain tech has been unlocked then prevent them from being disabled
-// ie when mining tools have been unlocked prevent mining button from being disabled.
-      //this will also rename gather stone to mine stone which will also increase the increment
-// farming tools will allow an increase in increment on push of harvest food button.
-
-
-//think about making a upgrade increment function to update increment settings. maybe within the functions it lists if x upgrade is true then add y amount to increment to specified resource
-
-  //add statment to disable #civBtn if population.current === population.max
+  (wood.total >= 20 && stone.total >= 10) ? $("#shack").prop("disabled", false) : $("#shack").prop("disabled", true);
+ 
+  (wood.total >= 35 && stone.total >= 20 && iron.total >= 5) ? $("#cottage").prop("disabled", false) : $("#cottage").prop("disabled", true);
+ 
   if (population.current === population.max || food.total < 20) {
     $("#civBtn").prop("disabled", true);
   } else if (population.current < population.max && food.total >= 20) {
@@ -297,15 +307,19 @@ var updateResources = () => {
 
 } // end of updateResources
 
-
-
+//Make a debug function so you dont have to click a billion times while testing for certain things
+var debug = () => {
+  food.total = 200;
+  wood.total = 200;
+  stone.total = 200;
+  iron.total = 200;
+  hide.total = 200;
+  updateResources();
+}
 //specialized items may include gold, coal, livestock(more food and leather?), and something???
 //items gathered from each resources tabs combined with special buildings that will produce special manufactured items
 // eventually make something where 1 stone will produce 4 units of sand. Sand will be used to make glass and that in turn to make more advanced things
 
 
-//Make a debug function so you dont have to click a billion times while testing....
-
-
 //END OF DOCUMENT.READY
-})
+});
