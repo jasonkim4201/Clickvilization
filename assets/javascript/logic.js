@@ -1,70 +1,46 @@
-//🎵Sweet dreams are made of these. Who am I to disagree? I traveled the world and the seven seas. Everybody is looking for something🎵
 $(document).ready(function() {
   console.log("ready");
-//GLOBAL VARIABLES
-//Maybe it would be smarter to declare global variables as objects since these variables will have several values
+
+var resources = function(name) {
+  this.name = name;
+  this.total = 0;
+  this.limit = 500;
+  this.increment = 1;
+};
+
+var housing = function(name, total, capacity, foodReq, woodReq, stoneReq, ironReq) {
+  this.name = name;
+  this.total = 0;
+  this.capacity = capacity;
+  this.requirements = {
+    food: foodReq,
+    wood: woodReq,
+    stone: stoneReq,
+    iron: ironReq
+  }
+}
+  
+var food = new resources("Food");
+var wood = new resources("Wood");
+var stone = new resources("Stone");
+var iron = new resources("Iron");
+
+var hut = new housing("Hut", 0, 1, 0, 5, 5, 0);
+var cabin = new housing("Log Cabin", 0, 4, 0, 20, 10, 0);
+var cottage = new housing("Cottage", 0, 10, 0, 35, 20, 5);
+
 var population = {
   current: 0,
   max: 0,
   idle: 0
-},
-food = {
-  name: "Food",
-  total: 0,
-  limit: 500, // + (granary * # of granary) + (upgrade2 * # of upgrade2 buildings)
-  increment: 1 // + (farm tool bonus) + (irrigation bonus) + (crop rotation bonus) + (fertilizer bonus)
-},
-wood = {
-  name: "Wood",
-  total: 0,
-  limit: 500,
-  increment: 1
-},
-stone = {
-  name: "Stone",
-  total: 0,
-  limit: 500,
-  increment: 1
-},
-iron = {
-  name: "Iron",
-  total: 0,
-  limit: 500,
-  increment: 1
-},
-hut = {
-  name: "Hut",
-  total: 0,
-  capacity: 1,
-  requirements: {
-    food: 0,
-    wood: 5,
-    stone: 5,
-    iron: 0
-  }
-},
-  cabin = {
-    name: "Log Cabin",
-    total: 0,
-    capacity: 4,
-    requirements: {
-      food: 0,
-      wood: 20,
-      stone: 10,
-      iron: 0
-    }
-  }
-  cottage = {
-    name: "Cottage",
-    total: 0,
-    capacity: 10,
-    requirements: {
-      food: 0,
-      wood: 35,
-      stone: 20,
-      iron: 5
-    }
-  }
+};
+
+console.log(food);
+console.log(wood);
+console.log(stone);
+console.log(iron);   
+console.log(hut);
+console.log(cabin);
 
 /* var maxPopulation = (hut.total * hut.capacity) + (cabin.total * cabin.capacity) +(cottage.total * cottage.capacity);
 console.log(`max pop: ${maxPopulation}`); */
@@ -216,25 +192,19 @@ var updateResources = () => {
   $("#stoneTotal").html(stone.total);
   $("ironTotal").html(iron.total);
   
-  if (food.total > 19 && population.max > 0) {
-    $("#civBtn").prop("disabled", false);
-  } else { //double check later if i should use an if else instead to be safe
-    $("#civBtn").prop("disabled", true);
-  }
-
-  if (wood.total < 5 && stone.total < 5) {
+  if (wood.total < 5 || stone.total < 5) {
     $("#hut").prop("disabled", true);
   } else if (wood.total >= 5 && stone.total >= 5) {
     $("#hut").prop("disabled", false);
   }
 
-  if (wood.total < 20 && stone.total < 10) {
+  if (wood.total < 20 || stone.total < 10) {
     $("#cabin").prop("disabled", true);
   } else if (wood.total >= 20 && stone.total >= 10) {
     $("#cabin").prop("disabled", false);
   }
 
-  if (wood.total < 35 && stone.total < 20 && iron.total < 5) {
+  if (wood.total < 35 || stone.total < 20 || iron.total < 5) {
     $("#cottage").prop("disabled", true);
   } else if (wood.total >= 35 && stone.total >= 20 && iron.total >= 5) {
     $("#cottage").prop("disabled", false);
@@ -250,7 +220,7 @@ var updateResources = () => {
 //think about making a upgrade increment function to update increment settings. maybe within the functions it lists if x upgrade is true then add y amount to increment to specified resource
 
   //add statment to disable #civBtn if population.current === population.max
-  if (population.current === population.max && food.total < 20) {
+  if (population.current === population.max || food.total < 20) {
     $("#civBtn").prop("disabled", true);
   } else if (population.current < population.max && food.total >= 20) {
     $("#civBtn").prop("disabled", false);
