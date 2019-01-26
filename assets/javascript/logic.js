@@ -24,6 +24,9 @@ var food = new resources("Food");
 var wood = new resources("Wood");
 var stone = new resources("Stone");
 var iron = new resources("Iron");
+var hide = new resources("Hide");
+var coal = new resources("Coal");
+var gold = new resources("Gold");
 
 var hut = new housing("Hut", 0, 1, 0, 5, 5, 0);
 var cabin = new housing("Log Cabin", 0, 4, 0, 20, 10, 0);
@@ -39,6 +42,7 @@ console.log(food);
 console.log(wood);
 console.log(stone);
 console.log(iron);   
+console.log(gold);
 console.log(hut);
 console.log(cabin);
 
@@ -93,6 +97,34 @@ $("#ironLimit").html(iron.limit);
     }
     break;
 
+    case "cattleBtn":
+    if (hide.total >= hide.limit) {
+      return console.log(`Hide limit of ${hide.limit} has been reached.`);
+    } else {
+      hide.total += hide.increment;
+      food.total += (1);
+      updateResources();
+    }
+    break;
+
+    case "coalBtn":
+    if (coal.total >= coal.limit) {
+      return console.log(`Coal limit of ${coal.limit} has been reached.`);
+    } else {
+      coal.total += coal.increment;
+      updateResources();
+    }
+    break;
+
+    case "goldBtn":
+    if (gold.total >= gold.limit) {
+      return console.log(`Gold limit of ${gold.limit} has been reached.`);
+    } else {
+      gold.total += gold.increment;
+      updateResources();
+    }
+    break;
+    
     default:
     break;
   }
@@ -160,11 +192,8 @@ $("#ironLimit").html(iron.limit);
 //check to see if user has enough resources to purchase an item. If requirements are met, then button will not be disabled.
 
 //Display Max pop
-if (population.max === 0) {
-  $("#maxPop").html("Maximum population: None! Housing required!");
-} else {
-  $("#maxPop").html(`Maximum  population: ${population.max}`);
-}
+(population.max === 0) ? $("#maxPop").html("Maximum population: None! Housing required!") : $("#maxPop").html(`Maximum  population: ${population.max}`);
+
 
 /* FUNCTION ZONE */
 
@@ -189,7 +218,10 @@ var updateResources = () => {
   $("#foodTotal").html(food.total);
   $("#woodTotal").html(wood.total);
   $("#stoneTotal").html(stone.total);
-  $("ironTotal").html(iron.total);
+  $("#ironTotal").html(iron.total);
+  $("#hideTotal").html(hide.total);
+  $("#coalTotal").html(coal.total);
+  $("#goldTotal").html(gold.total);
   
   if (wood.total < 5 || stone.total < 5) {
     $("#hut").prop("disabled", true);
