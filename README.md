@@ -1,2 +1,2 @@
 # Clickvilization
-Some random game I decided to make because I'm bored and I want to also reinforce my coding "skills".
+Some random game I decided to make because I was bored. Will update this from time to time. 
