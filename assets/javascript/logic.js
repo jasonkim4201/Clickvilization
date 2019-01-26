@@ -124,7 +124,7 @@ $("#ironLimit").html(iron.limit);
       updateResources();
     }
     break;
-    
+
     default:
     break;
   }
@@ -188,12 +188,50 @@ $("#ironLimit").html(iron.limit);
     }
 
   });
-  
+
+  $(".tech").on("click", function() {
+    switch(this.id) {
+      case "farmTools":
+      food.total -= 20;
+      wood.total -= 20;
+      stone.total -= 30;
+      food.increment++;
+      $("#foodRow").empty();
+      updateResources();
+      break;
+
+      case "lumberTools":
+      wood.total -= 25;
+      stone.total -= 30;
+      wood.increment++;
+      $("#treeRpw").empty();
+      updateResources();
+      break;
+
+      case "miningTools":
+      wood.total -= 30;
+      stone.total -= 40;
+      stone.increment++;    
+      $("#mineRow").empty();
+      $("#stoneBtn").html("Mine Stone");
+      $("#ironBtn").prop("disabled", false);
+      updateResources();
+      break;
+
+      case "animalHusbandry":
+      break;
+
+      default:
+      break;
+    }
+  });  
+
+/* IF STATEMENTS */
+
 //check to see if user has enough resources to purchase an item. If requirements are met, then button will not be disabled.
 
 //Display Max pop
 (population.max === 0) ? $("#maxPop").html("Maximum population: None! Housing required!") : $("#maxPop").html(`Maximum  population: ${population.max}`);
-
 
 /* FUNCTION ZONE */
 
@@ -222,18 +260,19 @@ var updateResources = () => {
   $("#hideTotal").html(hide.total);
   $("#coalTotal").html(coal.total);
   $("#goldTotal").html(gold.total);
-  
-  if (wood.total < 5 || stone.total < 5) {
-    $("#hut").prop("disabled", true);
-  } else if (wood.total >= 5 && stone.total >= 5) {
-    $("#hut").prop("disabled", false);
-  }
 
-  if (wood.total < 20 || stone.total < 10) {
+  (food.total >= 5 && wood.total >= 5 && stone.total >= 5) ? $("#farmTools").prop("disabled", false) : $("#farmTools").prop("disabled", true);
+
+  (wood.total >= 30 && stone.total >= 40) ? $("#miningTools").prop("disabled", false) : $("#miningTools").prop("disabled", true);
+  
+  (wood.total >= 5 && stone.total >= 5) ? $("#hut").prop("disabled", false) : $("#hut").prop("disabled", true);
+
+  (wood.total >= 20 && stone.total >= 10) ? $("#cabin").prop("disabled", false) : $("#cabin").prop("disabled", true)
+  /* if (wood.total < 20 || stone.total < 10) {
     $("#cabin").prop("disabled", true);
   } else if (wood.total >= 20 && stone.total >= 10) {
     $("#cabin").prop("disabled", false);
-  }
+  } */
 
   if (wood.total < 35 || stone.total < 20 || iron.total < 5) {
     $("#cottage").prop("disabled", true);
