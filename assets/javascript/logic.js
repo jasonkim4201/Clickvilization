@@ -55,7 +55,6 @@ $("#ironLimit").html(iron.limit);
 
   //on click function on basic resources
   $(".resource").on("click", function() {   
-  //EXPIERIMENTAL SWITCH STATEMENT
   switch (this.id) {
     case "foodBtn":
     if (food.total >= food.limit) {
@@ -210,7 +209,6 @@ var updateResources = () => {
     $("#cottage").prop("disabled", false);
   }
 
-// maybe make a large modal and use that as a tech menu
 //check to see if a certain tech has been unlocked then prevent them from being disabled
 // ie when mining tools have been unlocked prevent mining button from being disabled.
       //this will also rename gather stone to mine stone which will also increase the increment
@@ -226,7 +224,7 @@ var updateResources = () => {
     $("#civBtn").prop("disabled", false);
   }
 
-}
+} // end of updateResources
 
 
 
