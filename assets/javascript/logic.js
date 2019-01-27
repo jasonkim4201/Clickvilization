@@ -319,7 +319,7 @@ var debug = () => {
   hide.total = 200;
   updateResources();
 }
-
+//debug();
 //specialized items may include gold, coal, livestock(more food and leather?), and something???
 //items gathered from each resources tabs combined with special buildings that will produce special manufactured items
 // eventually make something where 1 stone will produce 4 units of sand. Sand will be used to make glass and that in turn to make more advanced things
