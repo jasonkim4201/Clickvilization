@@ -6,17 +6,19 @@ var resources = function(name) {
   this.total = 0;
   this.limit = 500;
   this.increment = 1;
-};
+}
 
-var housing = function(name, total, capacity, foodReq, woodReq, stoneReq, ironReq) {
-  this.name = name;
-  this.total = 0;
-  this.capacity = capacity;
-  this.requirements = {
-    food: foodReq,
-    wood: woodReq,
-    stone: stoneReq,
-    iron: ironReq
+class housing {
+  constructor(name, total, capacity, food, wood, stone, iron) {
+    this.name = name;
+    this.total = 0;
+    this.capacity = capacity;
+    this.requirements = {
+      food: food,
+      wood: wood,
+      stone: stone,
+      iron: iron,
+    };
   }
 }
   
@@ -30,9 +32,8 @@ var gold = new resources("Gold");
 
 
 var hut = new housing("Hut", 0, 1, 0, 5, 5, 0);
-var shack = new housing("Shack", 0, 4, 0, 20, 10, 0);
-//update cabin info later...
-var cabin = new housing("Log Cabin", 0, 4, 0, 20, 10, 0);
+var shack = new housing("Shack", 0, 3, 0, 15, 10, 0);
+var cabin = new housing("Log Cabin", 0, 6, 0, 35, 12, 0);
 var cottage = new housing("Cottage", 0, 10, 0, 35, 20, 5);
 
 var population = {
@@ -48,6 +49,7 @@ console.log(iron);
 console.log(gold);
 console.log(hut);
 console.log(shack);
+console.log(cabin);
 
 /* var maxPopulation = (hut.total * hut.capacity) + (cabin.total * cabin.capacity) +(cottage.total * cottage.capacity);
 console.log(`max pop: ${maxPopulation}`); */
@@ -167,13 +169,14 @@ $("#ironLimit").html(iron.limit);
       updateResources();
       break;
       
-      case "cottage":
-      wood.total -= cottage.requirements.wood;
-      stone.total -= cottage.requirements.stone;
-      iron.total -= cottage.requirements.iron;
+      case "cabin":
+      wood.total -= cabin.requirements.wood;
+      stone.total -= cabin.requirements.stone;
+      cabin.total++;
+      $("#cabinCount").html(cabin.total);
       updatePopulation();
       updateResources();
-      console.log("You built a cottage!");
+      console.log("You built a Log Cabin!");
       break;
       
       default:
@@ -293,11 +296,11 @@ var updateResources = () => {
 
   (food.total >= 70 && wood.total >= 200 && stone.total >= 125 && iron.total >= 50) ? $("#irrigation").prop("disabled", false) : $("#irrigation").prop("disabled", true);
   
-  (wood.total >= 5 && stone.total >= 5) ? $("#hut").prop("disabled", false) : $("#hut").prop("disabled", true);
+  (wood.total >= hut.requirements.wood && stone.total >= hut.requirements.stone) ? $("#hut").prop("disabled", false) : $("#hut").prop("disabled", true);
 
-  (wood.total >= 20 && stone.total >= 10) ? $("#shack").prop("disabled", false) : $("#shack").prop("disabled", true);
+  (wood.total >= shack.requirements.wood && stone.total >= shack.requirements.stone) ? $("#shack").prop("disabled", false) : $("#shack").prop("disabled", true);
  
-  (wood.total >= 35 && stone.total >= 20 && iron.total >= 5) ? $("#cottage").prop("disabled", false) : $("#cottage").prop("disabled", true);
+  (wood.total >= cabin.requirements.wood && stone.total >= cabin.requirements.stone) ? $("#cabin").prop("disabled", false) : $("#cabin").prop("disabled", true);
  
   if (population.current === population.max || food.total < 20) {
     $("#civBtn").prop("disabled", true);
@@ -316,6 +319,7 @@ var debug = () => {
   hide.total = 200;
   updateResources();
 }
+debug();
 //specialized items may include gold, coal, livestock(more food and leather?), and something???
 //items gathered from each resources tabs combined with special buildings that will produce special manufactured items
 // eventually make something where 1 stone will produce 4 units of sand. Sand will be used to make glass and that in turn to make more advanced things
