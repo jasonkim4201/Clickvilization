@@ -9,19 +9,37 @@ var resources = function(name) {
 }
 
 class housing {
-  constructor(name, total, capacity, food, wood, stone, iron) {
+  constructor(name, total, capacity, foodAmount, woodAmount, stoneAmount, ironAmount, hideAmount, coalAmount, goldAmount) {
     this.name = name;
     this.total = 0;
     this.capacity = capacity;
-    this.requirements = {
-      food: food,
-      wood: wood,
-      stone: stone,
-      iron: iron,
+    this.req = {
+      food: foodAmount,
+      wood: woodAmount,
+      stone: stoneAmount,
+      iron: ironAmount,
+      hide: hideAmount,
+      coal: coalAmount,
+      gold: goldAmount
     };
   }
 }
   
+class tech {
+  constructor(name, foodAmount, woodAmount, stoneAmount, ironAmount, hideAmount, coalAmount, goldAmount) {
+    this.name = name;
+    this.req = {
+      food: foodAmount,
+      wood: woodAmount,
+      stone: stoneAmount,
+      iron: ironAmount,
+      hide: hideAmount,
+      coal: coalAmount,
+      gold: goldAmount
+    };
+  }
+}
+
 var food = new resources("Food");
 var wood = new resources("Wood");
 var stone = new resources("Stone");
@@ -35,6 +53,14 @@ var hut = new housing("Hut", 0, 1, 0, 5, 5, 0);
 var shack = new housing("Shack", 0, 3, 0, 15, 10, 0);
 var cabin = new housing("Log Cabin", 0, 6, 0, 35, 12, 0);
 var cottage = new housing("Cottage", 0, 10, 0, 35, 20, 5);
+
+var farmTools = new tech("Farming Tools", 20, 20, 30, 0, 0, 0, 0);
+var lumberTools = new tech("Lumbering Tools", 0, 25, 30, 0, 0, 0, 0);
+var miningTools = new tech("Mining Tools", 0, 30, 40, 0, 0, 0, 0);
+var animalHusbandry = new tech("Animal Husbandry", 100, 85, 40, 30, 0, 0, 0);
+var masonry = new tech("Masonry", 0, 45, 100, 30, 0, 0, 0);
+var leatherMaking = new tech("Leather Making", 0, 120, 50, 35, 40, 0, 0);
+var irrigation = new tech("Irrigation", 70, 200, 125, 50, 0, 0, 0);
 
 var population = {
   current: 0,
@@ -152,8 +178,8 @@ $("#ironLimit").html(iron.limit);
   
     switch (this.id) {
       case "hut":
-      wood.total -= hut.requirements.wood;
-      stone.total -= hut.requirements.stone;
+      wood.total -= hut.req.wood;
+      stone.total -= hut.req.stone;
       hut.total++
       $("#hutCount").html(hut.total);
       updatePopulation();
@@ -161,8 +187,8 @@ $("#ironLimit").html(iron.limit);
       break;
 
       case "shack":
-      wood.total -= shack.requirements.wood;
-      stone.total -= shack.requirements.stone;
+      wood.total -= shack.req.wood;
+      stone.total -= shack.req.stone;
       shack.total++;
       $("#shackCount").html(shack.total);
       updatePopulation();
@@ -170,8 +196,8 @@ $("#ironLimit").html(iron.limit);
       break;
       
       case "cabin":
-      wood.total -= cabin.requirements.wood;
-      stone.total -= cabin.requirements.stone;
+      wood.total -= cabin.req.wood;
+      stone.total -= cabin.req.stone;
       cabin.total++;
       $("#cabinCount").html(cabin.total);
       updatePopulation();
@@ -189,25 +215,25 @@ $("#ironLimit").html(iron.limit);
   $(".tech").on("click", function() {
     switch(this.id) {
       case "farmTools":
-      food.total -= 20;
-      wood.total -= 20;
-      stone.total -= 30;
+      food.total -= farmTools.req.food;
+      wood.total -= farmTools.req.wood;
+      stone.total -= farmTools.req.stone;
       food.increment++;
       $("#foodRow").empty();
       updateResources();
       break;
 
       case "lumberTools":
-      wood.total -= 25;
-      stone.total -= 30;
+      wood.total -= lumberTools.req.wood;
+      stone.total -= lumberTools.req.stone;
       wood.increment++;
       $("#treeRow").empty();
       updateResources();
       break;
 
       case "miningTools":
-      wood.total -= 30;
-      stone.total -= 40;
+      wood.total -= miningTools.req.wood;
+      stone.total -= miningTools.req.stone;
       stone.increment++;    
       $("#mineRow").empty();
       $("#stoneBtn").html("Mine Stone");
@@ -216,37 +242,37 @@ $("#ironLimit").html(iron.limit);
       break;
 
       case "animalHusbandry":
-      food.total -= 100;
-      wood.total -= 85;
-      stone.total -= 40;
-      iron.total -= 30;
+      food.total -= animalHusbandry.req.food;
+      wood.total -= animalHusbandry.req.wood;
+      stone.total -= animalHusbandry.req.stone;
+      iron.total -= animalHusbandry.req.iron;
       $("#cowRow").empty();
       updateResources();
       break;
 
       case "masonry":
-      wood.total -= 45;
-      stone.total -= 100;
-      iron.total -= 30;
+      wood.total -= masonry.req.wood;
+      stone.total -= masonry.req.stone;
+      iron.total -= masonry.req.iron;
       stone.increment++;
       $("#stoneRow").empty();
       updateResources();
       break;
 
       case "leatherMaking":
-      hide.total -= 40;
-      wood.total -= 120;
-      stone.total -=50;
-      iron.total -= 35;
+      wood.total -= leatherMaking.req.wood;
+      stone.total -= leatherMaking.req.stone;
+      iron.total -= leatherMaking.req.iron;
+      hide.total -= leatherMaking.req.hide;
       $("#hideRow").empty();
       updateResources();
       break;
 
       case "irrigation":
-      food.total -= 70;
-      wood.total -= 200;
-      stone.total -= 125;
-      iron.total -= 50;
+      food.total -= irrigation.req.food;
+      wood.total -= irrigation.req.wood;
+      stone.total -= irrigation.req.stone;
+      iron.total -= irrigation.req.iron;
       food.increment++;
       $("#waterRow").empty();
       updateResources();
@@ -268,7 +294,7 @@ var updatePopulation = () => {
   $("#currentPop").html(`Population: ${population.current}`);
   $("#popDisplay").html(population.current);
   
-  population.max = (hut.total * hut.capacity) +  (shack.total * shack.capacity) + (cabin.total * cabin.capacity) +(cottage.total * cottage.capacity);
+  population.max = (hut.total * hut.capacity) + (shack.total * shack.capacity) + (cabin.total * cabin.capacity) +(cottage.total * cottage.capacity);
   $("#maxPop").html(`Maximum  population: ${population.max}`);
   /* console.log(`Max population: ${population.max}.`); */
 }
@@ -282,25 +308,25 @@ var updateResources = () => {
   $("#coalTotal").html(coal.total);
   $("#goldTotal").html(gold.total);
 
-  (food.total >= 20 && wood.total >= 20 && stone.total >= 30) ? $("#farmTools").prop("disabled", false) : $("#farmTools").prop("disabled", true);
+  (food.total >= farmTools.req.food && wood.total >= farmTools.req.wood && stone.total >= farmTools.req.stone) ? $("#farmTools").prop("disabled", false) : $("#farmTools").prop("disabled", true);
 
-  (wood.total >= 25 && stone.total >= 30) ? $("#lumberTools").prop("disabled", false) : $("#lumberTools").prop("disabled", true);
+  (wood.total >= lumberTools.req.wood && stone.total >= lumberTools.req.stone) ? $("#lumberTools").prop("disabled", false) : $("#lumberTools").prop("disabled", true);
 
-  (wood.total >= 30 && stone.total >= 40) ? $("#miningTools").prop("disabled", false) : $("#miningTools").prop("disabled", true);
+  (wood.total >= miningTools.req.wood && stone.total >= miningTools.req.stone) ? $("#miningTools").prop("disabled", false) : $("#miningTools").prop("disabled", true);
 
-  (food.total >= 100 && wood.total >= 85 && stone.total >= 40 && iron.total >= 30) ? $("#animalHusbandry").prop("disabled", false) : $("#animalHusbandry").prop("disabled", true);
+  (food.total >= animalHusbandry.req.food && wood.total >= animalHusbandry.req.wood && stone.total >= animalHusbandry.req.stone && iron.total >= animalHusbandry.req.iron) ? $("#animalHusbandry").prop("disabled", false) : $("#animalHusbandry").prop("disabled", true);
 
-  (wood.total >= 45 && stone.total >= 100 && iron.total >= 30) ? $("#masonry").prop("disabled", false) : $("#masonry").prop("disabled", true);
+  (wood.total >= masonry.req.wood && stone.total >= masonry.req.stone && iron.total >= masonry.req.iron) ? $("#masonry").prop("disabled", false) : $("#masonry").prop("disabled", true);
 
-  (hide.total >= 40 && wood.total >= 120 && stone.total >= 50 && iron.total >= 35) ? $("#leatherMaking").prop("disabled", false) : $("#leatherMaking").prop("disabled", true);
+  (hide.total >= leatherMaking.req.hide && wood.total >= leatherMaking.req.wood && stone.total >= leatherMaking.req.stone && iron.total >= leatherMaking.req.iron) ? $("#leatherMaking").prop("disabled", false) : $("#leatherMaking").prop("disabled", true);
 
-  (food.total >= 70 && wood.total >= 200 && stone.total >= 125 && iron.total >= 50) ? $("#irrigation").prop("disabled", false) : $("#irrigation").prop("disabled", true);
+  (food.total >= irrigation.req.food && wood.total >= irrigation.req.wood && stone.total >= irrigation.req.stone && iron.total >= irrigation.req.iron) ? $("#irrigation").prop("disabled", false) : $("#irrigation").prop("disabled", true);
   
-  (wood.total >= hut.requirements.wood && stone.total >= hut.requirements.stone) ? $("#hut").prop("disabled", false) : $("#hut").prop("disabled", true);
+  (wood.total >= hut.req.wood && stone.total >= hut.req.stone) ? $("#hut").prop("disabled", false) : $("#hut").prop("disabled", true);
 
-  (wood.total >= shack.requirements.wood && stone.total >= shack.requirements.stone) ? $("#shack").prop("disabled", false) : $("#shack").prop("disabled", true);
+  (wood.total >= shack.req.wood && stone.total >= shack.req.stone) ? $("#shack").prop("disabled", false) : $("#shack").prop("disabled", true);
  
-  (wood.total >= cabin.requirements.wood && stone.total >= cabin.requirements.stone) ? $("#cabin").prop("disabled", false) : $("#cabin").prop("disabled", true);
+  (wood.total >= cabin.req.wood && stone.total >= cabin.req.stone) ? $("#cabin").prop("disabled", false) : $("#cabin").prop("disabled", true);
  
   if (population.current === population.max || food.total < 20) {
     $("#civBtn").prop("disabled", true);
